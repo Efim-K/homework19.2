@@ -10,6 +10,10 @@ packages = [{include = "homework_19"}]
 python = "^3.12"
 requests = "^2.32.3"
 django = "^5.1"
+psycopg2 = "^2.9.9"
+psycopg2-binary = "^2.9.9"
+pillow = "^10.4.0"
+black = "^24.8.0"
 
 
 [tool.poetry.group.dev.dependencies]
