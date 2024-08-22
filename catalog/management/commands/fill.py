@@ -4,13 +4,14 @@ from django.core.management import BaseCommand
 
 from catalog.models import Product, Category
 
+catalog_json = Path(__file__).parent.parent.parent.parent.joinpath("catalog.json")
+
 
 class Command(BaseCommand):
 
     @staticmethod
     def json_read_categories():
         # Здесь мы получаем данные из фикстур с категориями
-        catalog_json = Path(__file__).parent.parent.parent.parent.joinpath("catalog.json")
         with open(catalog_json, 'r', encoding='utf-8') as file:
             categories = json.load(file)
         return categories
@@ -18,7 +19,6 @@ class Command(BaseCommand):
     @staticmethod
     def json_read_products():
         # Открываем файл с фикстурами продуктов
-        catalog_json = Path(__file__).parent.parent.parent.parent.joinpath("catalog.json")
         with open(catalog_json, 'r', encoding='utf-8') as file:
             products = json.load(file)
         return products
