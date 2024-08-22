@@ -37,11 +37,6 @@ class Product(models.Model):
         help_text="Дата последнего изменения(записи в БД)продукта",
         **NULLABLE,
     )
-    manufactured_at = models.DateTimeField(
-        verbose_name="Дата производства",
-        help_text="Дата производства продукта",
-        **NULLABLE,
-    )
 
     def __str__(self):
         return f"{self.name, self.price_buy}"
