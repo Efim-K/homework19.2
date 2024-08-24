@@ -12,7 +12,7 @@ class Product(models.Model):
         verbose_name="Описание", help_text="Описание продукта", **NULLABLE
     )
     preview = models.ImageField(
-        upload_to="media",
+        upload_to="catalog/photo",
         verbose_name="Изображение",
         help_text="Изображение(превью) продукта",
         **NULLABLE,
