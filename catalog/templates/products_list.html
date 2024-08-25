@@ -6,10 +6,10 @@
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
             {% for product in products %}
             <div class="col">
-                <div class="card shadow-sm" title="{{ product.depiction }}">
+                <div class="card shadow-sm" title="{{ product.depiction | truncatechars:100 }}">
                     <img class="card-img-top" src="{{ product.preview | media_filter }}">
                 </div>
-                <div class="card shadow-sm" title="{{ product.depiction }}">
+                <div class="card shadow-sm">
                     <div class="card-body">
                         <p class="card-text">{{ product.name }}</p>
                         <p class="card-text">{{ product.price_buy }} руб.</p>
