@@ -14,6 +14,10 @@ class BlogUpdateView(UpdateView):
     fields = ('title', 'content', 'preview', 'is_published',)
     success_url = reverse_lazy('blog:blog_list')
 
+    def get_success_url(self):
+        return reverse_lazy('blog:blog_view', args=[self.object.pk])
+
+
 
 class BlogListView(ListView):
     model = Blog
