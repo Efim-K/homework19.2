@@ -1,5 +1,7 @@
 from django.db import models
 
+NULLABLE = {"blank": "True", "null": "True"}
+
 
 # Create your models here.
 class Blog(models.Model):
@@ -14,7 +16,7 @@ class Blog(models.Model):
     # content;
     content = models.TextField(verbose_name='Содержимое')
     # превью(изображение);
-    preview = models.ImageField(verbose_name='Превью')
+    preview = models.ImageField(verbose_name='Превью', **NULLABLE)
     # дата создания;
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
     # признак публикации;

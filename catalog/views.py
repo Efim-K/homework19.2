@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from catalog.models import Product
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView
 
 
 class ProductListView(ListView):
