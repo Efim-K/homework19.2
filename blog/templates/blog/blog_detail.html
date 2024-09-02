@@ -7,22 +7,32 @@
 
             <div class="col">
                 <div class="card shadow-sm mb-3">
-                        <div class="text-bg-light p-3">
-                            <p class="card-text"> Наименование: {{ blog.title }}</p>
-                            <p class="card-text">Содержание: {{ blog.content }}</p>
-                            <p class="card-text">Дата создания: {{ blog.created_at }}</p>
-                            <p class="card-text">Публикация: {{ blog.is_published }}</p>
-                            <p class="card-text">Количество просмотров: {{ blog.views_count }}</p>
-                            <div class="d-flex justify-content-between align-items-center">
+                    <div class="card-header">
+                        {% if object.preview %}
+                        <img class="card-img-top" src="{{ object.preview|media_filter }}"
+                             style="max-width: 600px; max-height: 400px">
+                        {% else %}
+                        <img src="/media/blog/0019.jpeg"
+                             style="max-width: 128px; max-height: 128px">
+                        {% endif %}
+                    </div>
+                    <div class="text-bg-light p-3">
+                        <p class="card-text"> Наименование: {{ blog.title }}</p>
+                        <p class="card-text"> Slug: {{ blog.slug }}</p>
+                        <p class="card-text">Содержание: {{ blog.content }}</p>
+                        <p class="card-text">Дата создания: {{ blog.created_at }}</p>
+                        <p class="card-text">Публикация: {{ blog.is_published }}</p>
+                        <p class="card-text">Количество просмотров: {{ blog.views_count }}</p>
+                        <div class="d-flex justify-content-between align-items-center">
                         </div>
                         <div class="d-grid gap-2 d-md-block">
                             <a class="btn btn-primary" href="{% url 'blog:blog_list' %}"
                                role="button">Вернутся назад</a>
 
                         </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-{% endblock %}
+    {% endblock %}
