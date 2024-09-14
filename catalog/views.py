@@ -38,6 +38,7 @@ class ProductUpdateView(UpdateView):
         return context_data
 
     def form_valid(self, form):
+        """ Сохраняем изменения продукта и версии  """
         context_data = self.get_context_data()
         formset = context_data["formset"]
         if form.is_valid() and formset.is_valid():
