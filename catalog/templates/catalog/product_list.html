@@ -1,5 +1,6 @@
 {% extends 'catalog/base.html' %}
 {% load my_tags %}
+{% load static %}
 {% block content %}
 <div class="album py-5 bg-body-tertiary">
     <div class="container">
@@ -7,7 +8,13 @@
             {% for object in object_list %}
             <div class="col">
                 <div class="card shadow-sm" title="{{ object.depiction | truncatechars:100 }}">
-                    <img class="card-img-top" src="{{ object.preview | media_filter }}">
+                    {% if object.preview %}
+                    <img class="card-img-top" src="{{ object.preview|media_filter }}"
+                         style="max-width: 600px; max-height: 400px">
+                    {% else %}
+                    <img src="{% static 'images/product_by_default.jpeg' %}"
+                         style="max-width: 600px; max-height: 400px">
+                    {% endif %}
                 </div>
                 <div class="card shadow-sm">
                     <div class="card-body">

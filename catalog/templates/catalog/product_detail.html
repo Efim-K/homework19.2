@@ -1,15 +1,19 @@
 {% extends 'catalog/base.html' %}
 {% load my_tags %}
+{% load static %}
 {% block content %}
 <div class="album py-5 bg-body-tertiary">
     <div class="container">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
             <div class="col">
                 <div class="card shadow-sm">
-                    <img class="card-img-top" src="{{ product.preview | media_filter }}" alt="Card image cap">
-                    <div class="card-body">
-
-                    </div>
+                    {% if object.preview %}
+                    <img class="card-img-top" src="{{ object.preview|media_filter }}"
+                         style="max-width: 600px; max-height: 400px">
+                    {% else %}
+                    <img src="{% static 'images/product_by_default.jpeg' %}"
+                         style="max-width: 600px; max-height: 400px">
+                    {% endif %}
                 </div>
             </div>
             <div class="col">
@@ -22,16 +26,17 @@
                             <p class="card-text">Цена: {{ object.price_buy }} руб.</p>
                             <p class="card-text">Раздел: {{ object.category }}</p>
                             <div class="d-flex justify-content-between align-items-center">
-                        </div>
-                        <div class="d-grid gap-2 d-md-block">
-                            <a class="btn btn-primary" href="{% url 'catalog:product_list' %}"
-                               role="button">Вернутся назад</a>
-
+                            </div>
+                            <div class="d-grid gap-2 d-md-block">
+                                <a class="btn btn-primary" href="{% url 'catalog:product_list' %}"
+                                   role="button">Вернутся назад</a>
+                                <a class="btn btn-primary" href="{% url 'catalog:product_delete' object.pk %}"
+                                   role="button">Удалить</a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-{% endblock %}
+    {% endblock %}

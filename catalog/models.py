@@ -29,14 +29,14 @@ class Product(models.Model):
         verbose_name="Цена за покупку",
         help_text="Цена за покупку продукта",
     )
-    created_at = models.DateTimeField(
-        verbose_name="Дата создания", help_text="Дата создания(записи в БД) продукта"
-    )
-    updated_at = models.DateTimeField(
-        verbose_name="Дата последнего изменения",
-        help_text="Дата последнего изменения(записи в БД)продукта",
-        **NULLABLE,
-    )
+    created_at = models.DateTimeField(auto_now_add=True,
+                                      verbose_name="Дата создания", help_text="Дата создания(записи в БД) продукта"
+                                      )
+    updated_at = models.DateTimeField(auto_now=True,
+                                      verbose_name="Дата последнего изменения",
+                                      help_text="Дата последнего изменения(записи в БД)продукта",
+                                      **NULLABLE,
+                                      )
 
     def __str__(self):
         return f"{self.name, self.price_buy}"
