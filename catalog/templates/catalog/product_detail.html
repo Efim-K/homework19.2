@@ -25,6 +25,12 @@
                             <p class="card-text">Описание: {{ object.depiction }}</p>
                             <p class="card-text">Цена: {{ object.price_buy }} руб.</p>
                             <p class="card-text">Раздел: {{ object.category }}</p>
+                            {% for version in object.versions.all %}
+                            {% if version.version_active %}
+                                <p class="card-text">Название версии: {{version.version_name}}</p>
+                                <p class="card-text">Версия №: {{version.version_number}}</p>
+                            {% endif %}
+                            {% endfor %}
                             <div class="d-flex justify-content-between align-items-center">
                             </div>
                             <div class="d-grid gap-2 d-md-block">

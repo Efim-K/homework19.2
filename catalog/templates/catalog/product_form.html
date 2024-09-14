@@ -3,24 +3,39 @@
 {% block content %}
 <div class="album py-5 bg-body-tertiary">
     <div class="container">
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-            <div class="col">
-                <div class="card shadow-sm mb-3">
-                    <form method="post" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        {{ form.as_p }}
+        <form method="post" enctype="multipart/form-data">
+        <div class="row">
+
+                <div class="col-6">
+                    <div class="card">
+                        <div class="card-body">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                        </div>
                         <button type="submit" class="btn btn-primary">
-                            {% if  object %}
-                                Изменить
+                            {% if object %}
+                            Изменить
                             {% else %}
-                                Создание
+                            Создание
                             {% endif %}
                         </button>
-                        <a href="{% url 'blog:blog_list' %}" class="btn btn-secondary"> Отмена </a>
-                    </form>
+                        <a href="{% url 'catalog:product_list' %}" class="btn btn-secondary"> Отмена </a>
+                    </div>
                 </div>
-            </div>
+
+                <div class="col-6">
+                    <div class="card ">
+                        <div class="card-body">
+                            {{ formset.management_form }}
+                            {% for form in formset.forms %}
+                            {{ form.as_p }}
+                            <hr>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
         </div>
+    </form>
     </div>
 </div>
 {% endblock %}

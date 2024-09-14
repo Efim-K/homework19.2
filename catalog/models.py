@@ -5,6 +5,9 @@ NULLABLE = {"blank": "True", "null": "True"}
 
 
 class Product(models.Model):
+    """
+    Продукт с описанием, изображением, категорией и ценой за покупку.
+    """
     name = models.CharField(
         max_length=100, verbose_name="Наименование", help_text="Наименование продукта"
     )
@@ -52,6 +55,9 @@ class Product(models.Model):
 
 
 class Category(models.Model):
+    """
+    Категория с описанием.
+    """
     name = models.CharField(
         max_length=100, verbose_name="Наименование", help_text="Наименование категории"
     )
@@ -66,3 +72,32 @@ class Category(models.Model):
         verbose_name = "Категория"
         verbose_name_plural = "Категории"
         ordering = ("name",)
+
+
+class Version(models.Model):
+    """
+    Версия продукта с описанием, привязкой к продукту и отметкой активности.
+    """
+    product = models.ForeignKey(
+        "Product",
+        related_name="versions",
+        on_delete=models.CASCADE,
+        verbose_name="Продукт",
+        help_text="Продукт, к которому привязана версия",
+        **NULLABLE,
+    )
+    version_number = models.PositiveIntegerField(verbose_name="Номер версии", help_text="Номер версии продукта")
+    version_name = models.CharField(max_length=100, verbose_name="Наименование версии",
+                                    help_text="Наименование версии продукта")
+    version_active = models.BooleanField(default=False, verbose_name="Активная версия",
+                                         help_text="Активная версия продукта")
+
+    class Meta:
+        verbose_name = "Версия продукта"
+        verbose_name_plural = "Версии продуктов"
+        ordering = (
+            'version_name', 'version_number'
+        )
+
+    def __str__(self):
+        return f"{self.version_name}"
