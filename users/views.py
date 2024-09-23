@@ -34,7 +34,11 @@ class UserCreateView(CreateView):
 
 
 def email_verification(request, token):
+    """
+    Подтверждение почты с использованием токена
+    """
     user = get_object_or_404(User, token=token)
     user.is_active = True
     user.save()
     return redirect(reverse("users:login"))
+

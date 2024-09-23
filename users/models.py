@@ -7,9 +7,9 @@ from catalog.models import NULLABLE
 # Create your models here.
 class User(AbstractUser):
     """
-    Пользователь с полями имя, фамилия, email, пароль и дата регистрации.
+    Пользователь с полями почта, аватар, телефон, страна
     """
-    name = None
+    username = None
     email = models.EmailField(unique=True, verbose_name='Email')
     avatar = models.ImageField(upload_to="users/avatars", verbose_name="Аватар", **NULLABLE)
     phone = models.CharField(max_length=35, verbose_name='Phone', **NULLABLE)
