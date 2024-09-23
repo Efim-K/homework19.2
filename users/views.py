@@ -22,6 +22,8 @@ class UserCreateView(CreateView):
         user.is_active = False
         # Генерация случайного ключа
         token = secrets.token_hex(16)
+        user.token = token
+        user.save()
         host = self.request.get_host()
         url = f'https://{host}/users/email-confirm/{token}/'
         send_mail(
