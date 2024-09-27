@@ -33,13 +33,16 @@
                             {% endfor %}
                             <div class="d-flex justify-content-between align-items-center">
                             </div>
+
                             <div class="d-grid gap-2 d-md-block">
                                 <a class="btn btn-primary" href="{% url 'catalog:product_list' %}"
                                    role="button">Вернутся назад</a>
-                                <a class="btn btn-primary" href="{% url 'catalog:product_update' object.pk %}"
-                                   role="button">Изменить</a>
-                                <a class="btn btn-primary" href="{% url 'catalog:product_delete' object.pk %}"
-                                   role="button">Удалить</a>
+                                {% if object.owner == user %}
+                                    <a class="btn btn-primary" href="{% url 'catalog:product_update' object.pk %}"
+                                       role="button">Изменить</a>
+                                    <a class="btn btn-primary" href="{% url 'catalog:product_delete' object.pk %}"
+                                       role="button">Удалить</a>
+                                {% endif %}
                             </div>
                         </div>
                     </div>

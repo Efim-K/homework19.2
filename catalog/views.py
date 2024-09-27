@@ -4,6 +4,8 @@ from catalog.forms import ProductForm, VersionForm
 from catalog.models import Product, Version
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView
 
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 from django.urls import reverse_lazy
 
 
@@ -15,13 +17,19 @@ class ProductDetailView(DetailView):
     model = Product
 
 
-class ProductCreateView(CreateView):
+class ProductCreateView(CreateView, LoginRequiredMixin):
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy("catalog:product_list")
 
+    def form_valid(self, form):
+        product = form.save()
+        product.user = self.request.user
+        product.save()
+        return super().form_valid(form)
 
-class ProductUpdateView(UpdateView):
+
+class ProductUpdateView(UpdateView, LoginRequiredMixin):
     model = Product
     form_class = ProductForm
 
@@ -57,7 +65,7 @@ class ProductUpdateView(UpdateView):
             return self.render_to_response(self.get_context_data(form=form, formset=formset))
 
 
-class ProductDeleteView(DeleteView):
+class ProductDeleteView(DeleteView, LoginRequiredMixin):
     model = Product
     success_url = reverse_lazy("catalog:product_list")
 
