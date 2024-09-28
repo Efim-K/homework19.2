@@ -78,6 +78,7 @@ class UserResetPasswordView(PasswordResetView, StyleFormMixin):
                 # Создаем новый пароль для пользователя и отправляем его на почту
                 password = ''.join([random.choice(string.digits + string.ascii_letters) for i in range(0, 10)])
                 user.set_password(password)
+                user.is_active = True
                 user.save()
                 send_mail(
                     subject='Сброс пароля',
