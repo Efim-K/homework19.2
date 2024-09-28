@@ -13,6 +13,7 @@
                     {% if user.is_authenticated %}
                     <form action="{% url 'users:logout' %}" method="post">
                         {% csrf_token %}
+                        <li><a href="{% url 'users:profile' %}" class="text-white">Профиль</a></li>
                         <button style='color:#ffffff' type="submit" class="btn btn-link">Выход</button>
                     </form>
                     {% else %}

@@ -3,11 +3,11 @@ import random
 import string
 
 from django.core.mail import send_mail
-from django.views.generic import CreateView
+from django.views.generic import CreateView, UpdateView
 from django.urls import reverse_lazy, reverse
 from django.shortcuts import get_object_or_404, redirect
 
-from users.forms import UserRegisterForm, ResetPasswordForm
+from users.forms import UserRegisterForm, ResetPasswordForm, UserProfileForm
 from users.models import User
 
 from django.contrib.auth.views import PasswordResetView
@@ -89,3 +89,16 @@ class UserResetPasswordView(PasswordResetView, StyleFormMixin):
         except User.DoesNotExist:
             # Если пользователь не найден, перенаправляем на страницу регистрации
             return redirect(reverse('users:register'))
+
+
+class ProfileView(UpdateView, StyleFormMixin):
+    """
+    Отображает и редактирует профиль пользователя
+    """
+    model = User
+    form_class = UserProfileForm
+    template_name = 'users/user_profile.html'
+    success_url = reverse_lazy('users:profile')
+
+    def get_object(self, queryset=None):
+        return self.request.user
