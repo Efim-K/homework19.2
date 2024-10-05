@@ -18,15 +18,19 @@
                 </div>
                 <div class="card shadow-sm">
                     <div class="card-body">
+                        <p class="card-text">change_publication: {{ perms.product.change_publication }} </p>
+                        <p class="card-text">change_depiction: {{ perms.product.change_depiction }} </p>
+                        <p class="card-text">change_category: {{ perms.product.change_category }} </p>
+                        <p class="card-text">perms.object: {{ perms.object }} </p>
                         <p class="card-text">{{ object.name }}</p>
                         <p class="card-text">{{ object.price_buy }} руб.</p>
                         {% for version in object.versions.all %}
                         {% if version.version_active %}
-                            <p class="card-text">Название версии: {{version.version_name}}</p>
-                            <p class="card-text">Версия №: {{version.version_number}}</p>
-                            {% if object.owner == user %}
-                                <p class="card-text">Собственный продукт</p>
-                            {% endif %}
+                        <p class="card-text">Название версии: {{version.version_name}}</p>
+                        <p class="card-text">Версия №: {{version.version_number}}</p>
+                        {% if object.owner == user %}
+                        <p class="card-text">Собственный продукт</p>
+                        {% endif %}
                         {% endif %}
                         {% endfor %}
 
@@ -34,6 +38,11 @@
                             <div class="btn-group">
                                 <a class="btn btn-primary" href="{% url 'catalog:product_detail' object.pk %}"
                                    role="button">Посмотреть</a>
+                                {% if perms.catalog.change_depiction %}
+                                <a class="btn btn-primary" href="{% url 'catalog:product_update' object.pk %}"
+                                   role="button">Изменить</a>
+                                {% endif %}
+
                             </div>
                         </div>
                     </div>

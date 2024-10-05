@@ -3,10 +3,12 @@ from django.core.exceptions import ValidationError
 
 from catalog.models import Product, Version
 
+
 class StyleFormMixin:
     """
     Mixin для стилизации формы.
     """
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field_name, field in self.fields.items():
@@ -50,3 +52,12 @@ class VersionForm(StyleFormMixin, ModelForm):
     class Meta:
         model = Version
         fields = ('version_number', 'version_name', 'version_active',)
+
+
+class ProductModeratorForm(StyleFormMixin, ModelForm):
+    """ Форма модератора для публикации продукта """
+
+    class Meta:
+        model = Product
+        fields = ('is_publication', 'depiction', 'category',)
+       

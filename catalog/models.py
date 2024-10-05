@@ -44,6 +44,8 @@ class Product(models.Model):
                                       )
     owner = models.ForeignKey(User, verbose_name="Владелец", on_delete=models.SET_NULL, **NULLABLE)
 
+    is_publication = models.BooleanField(verbose_name="Публикация", default=False)
+
     def __str__(self):
         return f"{self.name, self.price_buy}"
 
@@ -54,6 +56,11 @@ class Product(models.Model):
             "name",
             "category",
             "price_buy",
+        )
+        permissions = (
+            ("change_publication", "Можете поменять статус публикации"),
+            ("change_depiction", "Можете поменять описание продукта"),
+            ("change_category", "Можете поменять категорию продукта"),
         )
 
 
