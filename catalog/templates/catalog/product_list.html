@@ -18,10 +18,6 @@
                 </div>
                 <div class="card shadow-sm">
                     <div class="card-body">
-                        <p class="card-text">change_publication: {{ perms.product.change_publication }} </p>
-                        <p class="card-text">change_depiction: {{ perms.product.change_depiction }} </p>
-                        <p class="card-text">change_category: {{ perms.product.change_category }} </p>
-                        <p class="card-text">perms.object: {{ perms.object }} </p>
                         <p class="card-text">{{ object.name }}</p>
                         <p class="card-text">{{ object.price_buy }} руб.</p>
                         {% for version in object.versions.all %}
