@@ -9,9 +9,14 @@ from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMix
 
 from django.urls import reverse_lazy
 
+from catalog.services import get_product_from_cache
+
 
 class ProductListView(ListView):
     model = Product
+
+    def get_queryset(self):
+        return get_product_from_cache()
 
 
 class ProductDetailView(DetailView):
@@ -33,7 +38,6 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
 class ProductUpdateView(LoginRequiredMixin, UpdateView):
     model = Product
     form_class = ProductForm
-
 
     def get_success_url(self):
         return reverse_lazy('catalog:product_detail', kwargs={"pk": self.object.pk})
