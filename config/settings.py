@@ -9,8 +9,15 @@ https://docs.djangoproject.com/en/5.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
-
+import os
 from pathlib import Path
+
+from dotenv import load_dotenv
+
+load_dotenv('dotenv')
+
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -18,13 +25,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-mj0b5k_2!zq!4(68(em=boe)^64d^=rsp$!0^ymz-ebkt5hk9*"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv("DEBUG", False) == 'True'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -76,12 +81,11 @@ WSGI_APPLICATION = "config.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": "homework20",
-        "USER": "postgres",
-        "PASSWORD": "Q12345!",
-        "HOST": "127.0.0.1",
-        "PORT": "5432",
-        # 'options': '-c client_encoding=UTF-8',
+        "NAME": os.getenv("NAME_DB"),
+        "USER": os.getenv("USER_DB"),
+        "PASSWORD": os.getenv("PASSWORD_DB"),
+        "HOST": os.getenv("HOST_DB"),
+        "PORT": os.getenv("PORT_DB"),
     }
 }
 
@@ -133,12 +137,12 @@ AUTH_USER_MODEL = "users.User"
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"
 
-EMAIL_HOST = 'smtp.yandex.ru'
-EMAIL_PORT = 465
-EMAIL_HOST_USER = "efimk.ya@yandex.ru"
-EMAIL_HOST_PASSWORD = "kmaowjyeipomuebb"
-EMAIL_USE_TLS = False
-EMAIL_USE_SSL = True
+EMAIL_HOST = os.getenv("EMAIL_HOST")
+EMAIL_PORT = os.getenv("EMAIL_PORT")
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
+EMAIL_USE_TLS = os.getenv("EMAIL_USE_TLS", False) == "True"
+EMAIL_USE_SSL = os.getenv("EMAIL_USE_SSL", False) == "True"
 
 SERVER_EMAIL = EMAIL_HOST_USER
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
@@ -148,6 +152,6 @@ if CAСHE_ENABLED:
     CACHES = {
         "default": {
             "BACKEND": "django.core.cache.backends.redis.RedisCache",
-            "LOCATION": "redis://127.0.0.1:6379",
+            "LOCATION": os.getenv("LOCATION"),
         }
     }

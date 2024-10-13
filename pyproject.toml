@@ -16,6 +16,7 @@ pillow = "^10.4.0"
 black = "^24.8.0"
 ipython = "^8.26.0"
 redis = "^5.1.1"
+python-dotenv = "^1.0.1"
 
 
 [tool.poetry.group.dev.dependencies]
