@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.core.exceptions import PermissionDenied
 from django.forms import inlineformset_factory
 from catalog.forms import ProductForm, VersionForm, ProductModeratorForm
-from catalog.models import Product, Version
+from catalog.models import Product, Version, Category
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView
 
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
@@ -16,7 +16,7 @@ class ProductListView(ListView):
     model = Product
 
     def get_queryset(self):
-        return get_product_from_cache()
+        return get_product_from_cache(Product)
 
 
 class ProductDetailView(DetailView):
@@ -93,3 +93,10 @@ def contacts(request):
         message = request.POST.get("message")
         print(f"{name}\n{phone}\n{message}")
     return render(request, "contacts.html")
+
+
+class CategoryListView(ListView):
+    model = Category
+
+    def get_queryset(self):
+        return get_product_from_cache(Category)
